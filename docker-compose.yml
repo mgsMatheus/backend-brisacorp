@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  brisacorp-mongodb:
+    image: mongo:latest
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - brisacorp-mongodb-data-volume:/data/db
+    networks:
+      - brisacorp-network
+
+networks:
+  brisacorp-network:
+    driver: bridge
+
+volumes:
+  brisacorp-mongodb-data-volume:
