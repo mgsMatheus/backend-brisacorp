@@ -8,12 +8,16 @@ import { AuthMapper } from "./auth.mapper";
 import { MongooseModule } from "@nestjs/mongoose";
 import { User, UserSchema } from "./entities/user.entity";
 import { CryptService } from "@brisacorp/common/providers";
+import { Hospital, HospitalSchema } from "./entities/hospital.entity";
 
 @Module({
   controllers: [AuthController],
   imports: [
     JwtAuthGuardModule,
-    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: User.name, schema: UserSchema },
+      { name: Hospital.name, schema: HospitalSchema },
+    ]),
   ],
   providers: [
     AuthUseCase,

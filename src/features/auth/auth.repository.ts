@@ -12,8 +12,13 @@ export class AuthRepository {
     private readonly mapper: AuthMapper,
   ) {}
 
-  public async getByCPF(cpf: string): Promise<UserAuthenticateDto> {
-    const entity = await this.authDataSource.getByCPF(cpf);
+  public async getByLogin(login: string): Promise<UserAuthenticateDto> {
+    let entity;
+    if (login.length === 11) {
+      entity = await this.authDataSource.getByCPF(login);
+    } else {
+      entity = await this.authDataSource.getByCNPJ(login);
+    }
 
     return entity ? this.mapper.toDto(entity) : null;
   }

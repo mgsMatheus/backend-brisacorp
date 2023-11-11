@@ -4,6 +4,7 @@ import { ConfigModule } from "@nestjs/config";
 import appConfig from "@brisacorp/common/config";
 import { DatabaseModule } from "./database/database.module";
 import { AuthModules } from "./features/auth";
+import { HospitalsModules } from "./features/hospitals";
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { AuthModules } from "./features/auth";
     DatabaseModule,
     UsersModules,
     AuthModules,
+    HospitalsModules,
   ],
   controllers: [],
   providers: [],

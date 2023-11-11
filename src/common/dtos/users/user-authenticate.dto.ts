@@ -1,5 +1,4 @@
-import { IsNotEmpty, MaxLength, MinLength, Validate } from "class-validator";
-import { CPFValidator } from "@brisacorp/common/validators/cpf.validator";
+import { IsNotEmpty, MaxLength, MinLength } from "class-validator";
 
 export class UserAuthenticateDto {
   public id?: string;
@@ -7,8 +6,7 @@ export class UserAuthenticateDto {
   @IsNotEmpty()
   @MinLength(11)
   @MaxLength(14)
-  @Validate(CPFValidator)
-  public cpf: string;
+  public login: string;
 
   @IsNotEmpty()
   @MaxLength(16)

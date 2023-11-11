@@ -18,7 +18,7 @@ export class AuthUseCase implements UseCase<UserAuthenticatedDto> {
 
   public execute(auth: UserAuthenticateDto): Promise<UserAuthenticatedDto> {
     return this.repository
-      .getByCPF(auth.cpf.replace(/[^\d]/g, ""))
+      .getByLogin(auth.login.replace(/[^\d]/g, ""))
       .then((user) =>
         user
           ? this.cryptService
@@ -28,7 +28,7 @@ export class AuthUseCase implements UseCase<UserAuthenticatedDto> {
                 valid
                   ? new UserAuthenticatedDto({
                       token: this.jwtService.sign({
-                        cpf: user.cpf,
+                        cpf: user.login,
                         id: user.id,
                       }),
                     })
