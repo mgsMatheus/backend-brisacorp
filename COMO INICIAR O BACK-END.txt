@@ -1,6 +1,7 @@
 Requisitos
 Node - https://nodejs.org/en/download/current - Para este desenvolvimento utilizou a v18.12.1
 Docker - https://www.docker.com/products/docker-desktop/
+MongoDB - https://www.mongodb.com/try/download/shell
 
 Esse projeto usa mongodb, e ai vc pode instalar um servidor mongo em sua maquina, ou rodar via Docker. 
 
@@ -17,3 +18,8 @@ apos o docker rodando
 utilizar o comando "npm install ou npm i" para instalar as dependencias
 logo apos a finalizaçao da um "npm run start" e verificar ser subiu em "http://localhost:3000/v1/docs"
 ao entra no link voce terá o swagger e as apis criadas.
+
+
+Para acessar o banco de dados é abrir o MongoDB e acessar a URI = "mongodb://localhost:27017"
+depois conectar 
+é so acessar o banco de dados "brisacorp"
