@@ -1,0 +1,19 @@
+Requisitos
+Node - https://nodejs.org/en/download/current - Para este desenvolvimento utilizou a v18.12.1
+Docker - https://www.docker.com/products/docker-desktop/
+
+Esse projeto usa mongodb, e ai vc pode instalar um servidor mongo em sua maquina, ou rodar via Docker. 
+
+Só rodar um Docker run ou se preferir existe um arquivo Docker-compose na raiz do projeto
+
+pra rodar o mongo via Docker é assim:
+docker run --name mongodb-container -p 27017:27017 -d mongo
+
+
+e pra rodar o docker-compose é só rodar o comando na raiz do projeto:
+docker-compose up -d
+
+apos o docker rodando
+utilizar o comando "npm install ou npm i" para instalar as dependencias
+logo apos a finalizaçao da um "npm run start" e verificar ser subiu em "http://localhost:3000/v1/docs"
+ao entra no link voce terá o swagger e as apis criadas.
