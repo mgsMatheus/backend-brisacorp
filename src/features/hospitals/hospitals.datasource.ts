@@ -8,8 +8,8 @@ import { Hospital } from "./entities/hospitals.entity";
 export class HospitalsDataSource extends CrudDataSource<Hospital> {
   constructor(
     @InjectModel(Hospital.name)
-    private readonly hospistalModel: Model<Hospital>,
+    private readonly hospitalModel: Model<Hospital>,
   ) {
-    super(hospistalModel);
+    super(hospitalModel);
   }
 }
