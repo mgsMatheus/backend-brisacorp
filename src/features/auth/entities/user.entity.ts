@@ -7,7 +7,7 @@ export type UserDocument = HydratedDocument<User>;
 @Schema()
 export class User extends BaseEntity {
   @Prop({ required: true, unique: true })
-  cpf: string;
+  login: string;
 
   @Prop({ required: true })
   password: string;

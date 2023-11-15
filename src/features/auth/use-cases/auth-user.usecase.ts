@@ -19,22 +19,21 @@ export class AuthUseCase implements UseCase<UserAuthenticatedDto> {
   public execute(auth: UserAuthenticateDto): Promise<UserAuthenticatedDto> {
     return this.repository
       .getByLogin(auth.login.replace(/[^\d]/g, ""))
-      .then((user) =>
-        user
-          ? this.cryptService
-              .compareHash(auth.password, user.password)
-              .then(() => true)
-              .then((valid) =>
-                valid
-                  ? new UserAuthenticatedDto({
-                      token: this.jwtService.sign({
-                        cpf: user.login,
-                        id: user.id,
-                      }),
-                    })
-                  : null,
-              )
-          : null,
-      );
+      .then(async (user) => {
+        const compare = await this.cryptService.compareHash(
+          auth.password,
+          user.password,
+        );
+
+        if (compare === true) {
+          return new UserAuthenticatedDto({
+            token: this.jwtService.sign({
+              cpf: user.login,
+              id: user.id,
+            }),
+          });
+        }
+        return null;
+      });
   }
 }

@@ -8,7 +8,7 @@ import { User, UserDocument } from "./entities/user.entity";
 @Injectable()
 export class AuthMapper implements Mapper<User, UserAuthenticateDto> {
   public toDto(entity: Partial<UserDocument>): UserAuthenticateDto {
-    const { id, cpf: login, password } = entity;
+    const { id, login, password } = entity;
 
     const dto = new UserAuthenticateDto();
     dto.id = id;
@@ -22,7 +22,7 @@ export class AuthMapper implements Mapper<User, UserAuthenticateDto> {
     const { login, password } = dto;
 
     const auth = new User();
-    auth.cpf = login;
+    auth.login = login;
     auth.password = password;
 
     return auth;

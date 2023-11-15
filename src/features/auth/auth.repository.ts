@@ -4,7 +4,6 @@ import { Injectable } from "@nestjs/common";
 import { UserAuthenticateDto } from "@brisacorp/common/dtos";
 import { AuthDataSource } from "./auth.datasource";
 import { AuthMapper } from "./auth.mapper";
-
 @Injectable()
 export class AuthRepository {
   constructor(

@@ -11,7 +11,6 @@ import {
   UserAuthenticatedDto,
 } from "@brisacorp/common/dtos";
 import { AuthUseCase } from "./use-cases";
-
 @Controller("/v1/auth")
 @ApiTags("Autenticação")
 export class AuthController {
