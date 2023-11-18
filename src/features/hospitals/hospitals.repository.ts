@@ -4,6 +4,8 @@ import { Hospital } from "./entities/hospitals.entity";
 import { HospitalDto } from "@brisacorp/common/dtos/hospitals/hospital.dto";
 import { HospitalsDataSource } from "./hospitals.datasource";
 import { HospitalMapper } from "./hospital.mapper";
+import { Doctor } from "./entities/doctors.entity";
+import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 
 @Injectable()
 export class HospitalsRepository extends CrudRepository<
@@ -17,5 +19,22 @@ export class HospitalsRepository extends CrudRepository<
     private readonly hospitalMapper: HospitalMapper,
   ) {
     super(hospitalsDataSource, hospitalMapper);
+  }
+  public async createDoctor(
+    hospitalId: string,
+    doctor: Doctor,
+  ): Promise<DoctorDto> {
+    return await this.hospitalsDataSource.createDoctor(hospitalId, doctor);
+  }
+  public async getDoctors(
+    hospitalId: string,
+    doctor: string,
+    specialty: string,
+  ): Promise<DoctorDto[]> {
+    return await this.hospitalsDataSource.getDoctors(
+      hospitalId,
+      doctor,
+      specialty,
+    );
   }
 }

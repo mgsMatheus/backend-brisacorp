@@ -1,7 +1,12 @@
 import { Module } from "@nestjs/common";
 import { PassportModule } from "@nestjs/passport";
 
-import { CreateHospitalUseCase, GetHospitalByIdUseCase } from "./use-cases";
+import {
+  CreateDoctorUseCase,
+  CreateHospitalUseCase,
+  GetDoctorByIdUseCase,
+  GetHospitalByIdUseCase,
+} from "./use-cases";
 import { MongooseModule } from "@nestjs/mongoose";
 import { CryptService } from "@brisacorp/common/providers";
 import { JwtAuthGuardModule } from "@brisacorp/common/security";
@@ -11,7 +16,12 @@ import { HospitalMapper } from "./hospital.mapper";
 import { HospitalsDataSource } from "./hospitals.datasource";
 import { HospitalsRepository } from "./hospitals.repository";
 
-const usecases = [CreateHospitalUseCase, GetHospitalByIdUseCase];
+const usecases = [
+  CreateHospitalUseCase,
+  GetHospitalByIdUseCase,
+  CreateDoctorUseCase,
+  GetDoctorByIdUseCase,
+];
 
 @Module({
   controllers: [HospitalsController],

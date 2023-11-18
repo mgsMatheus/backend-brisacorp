@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { BaseEntity } from "@brisacorp/common/base/data/entities/base.entity";
 import { HydratedDocument } from "mongoose";
+import { Doctor, DoctorSchema } from "./doctors.entity";
 
 export type HospitalDocument = HydratedDocument<Hospital>;
 
@@ -20,6 +21,9 @@ export class Hospital extends BaseEntity {
 
   @Prop({ required: true })
   public password: string;
+
+  @Prop({ type: [DoctorSchema] })
+  doctors: Doctor[];
 }
 
 export const HospitalSchema = SchemaFactory.createForClass(Hospital);

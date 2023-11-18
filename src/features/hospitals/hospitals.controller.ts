@@ -5,24 +5,30 @@ import {
   Get,
   NotFoundException,
   Param,
+  Query,
   Post,
   UseGuards,
   UseInterceptors,
   Request,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiQuery, ApiTags } from "@nestjs/swagger";
 import { CreateHospitalUseCase } from "./use-cases/create-hospital.usecase";
 import { CreateHospitalDto } from "@brisacorp/common/dtos/hospitals/create-hospital.dto";
 import { HospitalDto } from "@brisacorp/common/dtos/hospitals/hospital.dto";
 import { JwtAuthGuard } from "@brisacorp/common/security";
 import { GetHospitalByIdUseCase } from "./use-cases/get-hospital-by-id.usecase";
+import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
+import { CreateDoctorUseCase } from "./use-cases/create-doctor.usecase";
+import { GetDoctorByIdUseCase } from "./use-cases";
 
 @Controller("/v1/hospitals")
 @ApiTags("Hospital")
 export class HospitalsController {
   constructor(
     private readonly createHospitalUseCase: CreateHospitalUseCase,
+    private readonly createDoctorUseCase: CreateDoctorUseCase,
     private readonly getHospitalById: GetHospitalByIdUseCase,
+    private readonly getDoctor: GetDoctorByIdUseCase,
   ) {}
 
   @Post()
@@ -50,5 +56,36 @@ export class HospitalsController {
       }
       return user;
     });
+  }
+
+  @Post(":hospitalId/doctor")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public createDoctorInHospital(
+    @Param("hospitalId") hospitalId: string,
+    @Body() doctor: DoctorDto,
+  ): Promise<DoctorDto> {
+    return this.createDoctorUseCase.execute(hospitalId, doctor);
+  }
+
+  @Get(":hospitalId/doctors")
+  @ApiBearerAuth()
+  @ApiQuery({
+    name: "doctor",
+    type: String,
+    required: false,
+  })
+  @ApiQuery({
+    name: "specialty",
+    type: String,
+    required: false,
+  })
+  @UseGuards(JwtAuthGuard)
+  public getDoctors(
+    @Param("hospitalId") hospitalId: string,
+    @Query("doctor") doctor: string,
+    @Query("specialty") specialty: string,
+  ): Promise<DoctorDto[]> {
+    return this.getDoctor.execute(hospitalId, doctor, specialty);
   }
 }
