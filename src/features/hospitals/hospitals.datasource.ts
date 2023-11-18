@@ -37,15 +37,15 @@ export class HospitalsDataSource extends CrudDataSource<Hospital> {
     specialty: string,
   ): Promise<DoctorDto[]> {
     const ObjectId = new mongoose.Types.ObjectId(hospitalId);
-    if (doctor !== undefined && specialty === undefined) {
+    if (doctor !== "" && specialty === "") {
       return await this.getDoctorFilterName(ObjectId, doctor);
     }
 
-    if (doctor === undefined && specialty !== undefined) {
+    if (doctor === "" && specialty !== "") {
       return await this.getDoctorFilterSpecialty(ObjectId, specialty);
     }
 
-    if (doctor !== undefined && specialty !== undefined) {
+    if (doctor !== "" && specialty !== "") {
       return await this.getDoctorFilterSpecialtyAndName(
         ObjectId,
         doctor,
