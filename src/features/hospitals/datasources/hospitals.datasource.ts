@@ -2,8 +2,8 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import mongoose, { Model } from "mongoose";
 import { CrudDataSource } from "@brisacorp/common/base/data";
-import { Hospital } from "./entities/hospitals.entity";
-import { Doctor } from "./entities/doctors.entity";
+import { Hospital } from "../entities/hospitals.entity";
+import { Doctor } from "../entities/doctors.entity";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 
 @Injectable()

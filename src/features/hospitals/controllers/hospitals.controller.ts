@@ -12,14 +12,14 @@ import {
   Request,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiQuery, ApiTags } from "@nestjs/swagger";
-import { CreateHospitalUseCase } from "./use-cases/create-hospital.usecase";
+import { CreateHospitalUseCase } from "../use-cases/hospitals/create-hospital.usecase";
 import { CreateHospitalDto } from "@brisacorp/common/dtos/hospitals/create-hospital.dto";
 import { HospitalDto } from "@brisacorp/common/dtos/hospitals/hospital.dto";
 import { JwtAuthGuard } from "@brisacorp/common/security";
-import { GetHospitalByIdUseCase } from "./use-cases/get-hospital-by-id.usecase";
+import { GetHospitalByIdUseCase } from "../use-cases/hospitals/get-hospital-by-id.usecase";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
-import { CreateDoctorUseCase } from "./use-cases/create-doctor.usecase";
-import { GetDoctorByIdUseCase } from "./use-cases";
+import { CreateDoctorUseCase } from "../use-cases/hospitals/create-doctor.usecase";
+import { GetDoctorByIdUseCase } from "../use-cases/hospitals";
 
 @Controller("/v1/hospitals")
 @ApiTags("Hospital")

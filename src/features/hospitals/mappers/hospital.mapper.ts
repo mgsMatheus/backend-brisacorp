@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { Mapper } from "@brisacorp/common/base/mapper";
-import { Hospital, HospitalDocument } from "./entities/hospitals.entity";
+import { Hospital, HospitalDocument } from "../entities/hospitals.entity";
 import { HospitalDto } from "@brisacorp/common/dtos/hospitals/hospital.dto";
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { UseCase } from "@brisacorp/common/base";
-import { HospitalsRepository } from "../hospitals.repository";
+import { HospitalsRepository } from "../../repositories/hospitals.repository";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 
 @Injectable()

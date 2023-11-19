@@ -1,10 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { CrudRepository } from "@brisacorp/common/base/data";
-import { Hospital } from "./entities/hospitals.entity";
+import { Hospital } from "../entities/hospitals.entity";
 import { HospitalDto } from "@brisacorp/common/dtos/hospitals/hospital.dto";
-import { HospitalsDataSource } from "./hospitals.datasource";
-import { HospitalMapper } from "./hospital.mapper";
-import { Doctor } from "./entities/doctors.entity";
+import { HospitalsDataSource } from "../datasources/hospitals.datasource";
+import { HospitalMapper } from "../mappers/hospital.mapper";
+import { Doctor } from "../entities/doctors.entity";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 
 @Injectable()

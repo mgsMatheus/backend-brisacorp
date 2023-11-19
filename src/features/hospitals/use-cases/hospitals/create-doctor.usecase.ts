@@ -1,7 +1,7 @@
 import { UseCase } from "@brisacorp/common/base";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 import { Injectable } from "@nestjs/common";
-import { HospitalsRepository } from "../hospitals.repository";
+import { HospitalsRepository } from "../../repositories/hospitals.repository";
 import { CreateDoctorDTO } from "@brisacorp/common/dtos/hospitals/create-doctor.dto";
 
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { UseCase } from "@brisacorp/common/base";
 import { HospitalDto } from "@brisacorp/common/dtos/hospitals/hospital.dto";
-import { HospitalsRepository } from "../hospitals.repository";
+import { HospitalsRepository } from "../../repositories/hospitals.repository";
 
 @Injectable()
 export class GetHospitalByIdUseCase implements UseCase<HospitalDto> {
