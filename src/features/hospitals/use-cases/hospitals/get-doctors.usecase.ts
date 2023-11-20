@@ -4,10 +4,14 @@ import { HospitalsRepository } from "../../repositories/hospitals.repository";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 
 @Injectable()
-export class GetDoctorByIdUseCase implements UseCase<DoctorDto[]> {
+export class GetDoctorsUseCase implements UseCase<DoctorDto[]> {
   constructor(private readonly hospitalsRepository: HospitalsRepository) {}
 
-  public execute(id: string): Promise<DoctorDto[]> {
-    return this.hospitalsRepository.getDoctorById(id);
+  public execute(
+    hospitalId: string,
+    doctor: string,
+    specialty: string,
+  ): Promise<DoctorDto[]> {
+    return this.hospitalsRepository.getDoctors(hospitalId, doctor, specialty);
   }
 }

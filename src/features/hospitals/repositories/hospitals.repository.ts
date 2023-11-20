@@ -37,4 +37,8 @@ export class HospitalsRepository extends CrudRepository<
       specialty,
     );
   }
+
+  public async getDoctorById(id: string): Promise<DoctorDto[]> {
+    return await this.hospitalsDataSource.getDoctorById(id);
+  }
 }

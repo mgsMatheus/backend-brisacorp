@@ -142,4 +142,26 @@ export class HospitalsDataSource extends CrudDataSource<Hospital> {
       .exec();
     return getDoctors;
   }
+
+  async getDoctorById(id: string): Promise<DoctorDto[]> {
+    const ObjectId = new mongoose.Types.ObjectId(id);
+    const getDoctors = await this.hospitalModel
+      .aggregate([
+        {
+          $unwind: "$doctors",
+        },
+        {
+          $project: {
+            doctors: 1,
+          },
+        },
+        {
+          $match: {
+            "doctors._id": ObjectId,
+          },
+        },
+      ])
+      .exec();
+    return getDoctors;
+  }
 }

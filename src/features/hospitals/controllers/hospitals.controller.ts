@@ -19,7 +19,8 @@ import { JwtAuthGuard } from "@brisacorp/common/security";
 import { GetHospitalByIdUseCase } from "../use-cases/hospitals/get-hospital-by-id.usecase";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 import { CreateDoctorUseCase } from "../use-cases/hospitals/create-doctor.usecase";
-import { GetDoctorByIdUseCase } from "../use-cases/hospitals";
+import { GetDoctorsUseCase } from "../use-cases/hospitals";
+import { GetDoctorByIdUseCase } from "../use-cases/hospitals/get-doctor-by-id.usecase";
 
 @Controller("/v1/hospitals")
 @ApiTags("Hospital")
@@ -27,8 +28,9 @@ export class HospitalsController {
   constructor(
     private readonly createHospitalUseCase: CreateHospitalUseCase,
     private readonly createDoctorUseCase: CreateDoctorUseCase,
-    private readonly getHospitalById: GetHospitalByIdUseCase,
-    private readonly getDoctor: GetDoctorByIdUseCase,
+    private readonly getHospitalByIdUseCase: GetHospitalByIdUseCase,
+    private readonly getDoctorsUseCase: GetDoctorsUseCase,
+    private readonly getDoctorByIdUseCase: GetDoctorByIdUseCase,
   ) {}
 
   @Post()
@@ -50,7 +52,7 @@ export class HospitalsController {
   public getById(
     @Param("id") id: string,
   ): Promise<HospitalDto | NotFoundException> {
-    return this.getHospitalById.execute(id).then((user) => {
+    return this.getHospitalByIdUseCase.execute(id).then((user) => {
       if (!user) {
         throw new NotFoundException("Usuario não encontrado");
       }
@@ -86,6 +88,13 @@ export class HospitalsController {
     @Query("doctor") doctor: string,
     @Query("specialty") specialty: string,
   ): Promise<DoctorDto[]> {
-    return this.getDoctor.execute(hospitalId, doctor, specialty);
+    return this.getDoctorsUseCase.execute(hospitalId, doctor, specialty);
+  }
+
+  @Get("doctor/:id")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public getDoctorById(@Param("id") id: string): Promise<DoctorDto[]> {
+    return this.getDoctorByIdUseCase.execute(id);
   }
 }

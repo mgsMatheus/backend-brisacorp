@@ -5,6 +5,7 @@ import {
   CreateDoctorUseCase,
   CreateHospitalUseCase,
   GetDoctorByIdUseCase,
+  GetDoctorsUseCase,
   GetHospitalByIdUseCase,
 } from "./use-cases/hospitals";
 import { MongooseModule } from "@nestjs/mongoose";
@@ -29,8 +30,9 @@ const usecases = [
   CreateHospitalUseCase,
   GetHospitalByIdUseCase,
   CreateDoctorUseCase,
-  GetDoctorByIdUseCase,
+  GetDoctorsUseCase,
   CreateDateAvailableUseCase,
+  GetDoctorByIdUseCase,
 ];
 
 @Module({
