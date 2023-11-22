@@ -9,6 +9,7 @@ import {
   GetDoctorByIdUseCase,
   GetDoctorsUseCase,
   GetHospitalByIdUseCase,
+  GetHourAvailableUseCase,
 } from "./use-cases/hospitals";
 import { MongooseModule } from "@nestjs/mongoose";
 import { CryptService } from "@brisacorp/common/providers";
@@ -43,6 +44,7 @@ const usecases = [
   DeleteDateAvailableUseCase,
   FilterSpecialtyUseCase,
   GetDatesBySpecialtyUseCase,
+  GetHourAvailableUseCase,
 ];
 
 @Module({

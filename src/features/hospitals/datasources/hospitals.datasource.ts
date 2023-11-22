@@ -216,4 +216,39 @@ export class HospitalsDataSource extends CrudDataSource<Hospital> {
     ]);
     return date;
   }
+
+  public async getHourAvailable(
+    specialty: string,
+    date: string,
+  ): Promise<DatesAvailablesDto[]> {
+    const hour = await this.hospitalModel.aggregate([
+      {
+        $unwind: "$doctors",
+      },
+      {
+        $project: {
+          "doctors.specialty": 1,
+          _id: {
+            $toString: "$doctors._id",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "dateavailables",
+          localField: "_id",
+          foreignField: "doctorId",
+          as: "datesDoctors",
+        },
+      },
+      {
+        $match: {
+          "doctors.specialty": specialty,
+          "datesDoctors.active": true,
+          "datesDoctors.date": date,
+        },
+      },
+    ]);
+    return hour;
+  }
 }

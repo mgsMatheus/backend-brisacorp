@@ -55,4 +55,10 @@ export class HospitalsRepository extends CrudRepository<
       specialty,
     );
   }
+  public async getHourAvailable(
+    specialty: string,
+    date: string,
+  ): Promise<DatesAvailablesDto[]> {
+    return await this.hospitalsDataSource.getHourAvailable(specialty, date);
+  }
 }

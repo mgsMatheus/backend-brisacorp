@@ -23,6 +23,7 @@ import {
   FilterSpecialtyUseCase,
   GetDatesBySpecialtyUseCase,
   GetDoctorsUseCase,
+  GetHourAvailableUseCase,
 } from "../use-cases/hospitals";
 import { GetDoctorByIdUseCase } from "../use-cases/hospitals/get-doctor-by-id.usecase";
 import { SpecialtyDto } from "@brisacorp/common/dtos/hospitals/specialty.dto";
@@ -39,6 +40,7 @@ export class HospitalsController {
     private readonly getDoctorByIdUseCase: GetDoctorByIdUseCase,
     private readonly filterSpecialtyUseCase: FilterSpecialtyUseCase,
     private readonly getDatesBySpecialtyUseCase: GetDatesBySpecialtyUseCase,
+    private readonly getHourAvailable: GetHourAvailableUseCase,
   ) {}
 
   @Post()
@@ -69,6 +71,15 @@ export class HospitalsController {
     @Query("specialty") specialty: string,
   ): Promise<DatesAvailablesDto[]> {
     return this.getDatesBySpecialtyUseCase.execute(specialty);
+  }
+  @Get("hours-available")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public GetHoursAvailable(
+    @Query("specialty") specialty: string,
+    @Query("date") date: string,
+  ): Promise<DatesAvailablesDto[]> {
+    return this.getHourAvailable.execute(specialty, date);
   }
 
   @Get(":id")
