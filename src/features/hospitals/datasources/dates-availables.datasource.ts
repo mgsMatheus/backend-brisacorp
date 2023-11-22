@@ -4,6 +4,7 @@ import { Model } from "mongoose";
 import { CrudDataSource } from "@brisacorp/common/base/data";
 import { DateAvailable } from "../entities/dates-availables.entity";
 import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
+import { UpdateStatusDateAvailableDTO } from "@brisacorp/common/dtos/hospitals/update-date-available.dto";
 
 @Injectable()
 export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
@@ -56,10 +57,13 @@ export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
     return hour;
   }
 
-  public updateStatusDateAvailable(id: string, status: boolean) {
+  public updateStatusDateAvailable(
+    id: string,
+    body: UpdateStatusDateAvailableDTO,
+  ) {
     return this.dateAvailableModel.updateOne({
       _id: id,
-      $set: { active: status },
+      $set: { active: body.status },
     });
   }
 }

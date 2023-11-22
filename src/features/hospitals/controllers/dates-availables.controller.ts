@@ -23,6 +23,7 @@ import { DateAvailableDto } from "@brisacorp/common/dtos/hospitals/date-availabl
 import { CreateDateAvailableDTO } from "@brisacorp/common/dtos/hospitals/create-date-available.dto";
 import { DeleteDateAvailableUseCase } from "../use-cases/dates-availables/delete-date-available.usecase";
 import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
+import { UpdateStatusDateAvailableDTO } from "@brisacorp/common/dtos/hospitals/update-date-available.dto";
 
 @Controller("/v1/datesAvailables")
 @ApiTags("Hospital")
@@ -66,9 +67,9 @@ export class DatesAvailablesController {
   @UseGuards(JwtAuthGuard)
   public UpdateDateAvailable(
     @Param("id") id: string,
-    @Query("status") status: boolean,
+    @Body() body: UpdateStatusDateAvailableDTO,
   ) {
-    return this.updateStatusDateAvailableUseCase.execute(id, status);
+    return this.updateStatusDateAvailableUseCase.execute(id, body);
   }
 
   @Delete("/:id")

@@ -5,6 +5,7 @@ import { DateAvailableDto } from "@brisacorp/common/dtos/hospitals/date-availabl
 import { DatesAvailablesDataSource } from "../datasources/dates-availables.datasource";
 import { DateAvailableMapper } from "../mappers/dates-availables.mapper";
 import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
+import { UpdateStatusDateAvailableDTO } from "@brisacorp/common/dtos/hospitals/update-date-available.dto";
 
 @Injectable()
 export class DatesAvailablesRepository extends CrudRepository<
@@ -30,7 +31,10 @@ export class DatesAvailablesRepository extends CrudRepository<
     return this.datesAvailabesDataSource.getDoctorsAvailable(specialty, date);
   }
 
-  public updateStatusDateAvailable(id: string, status: boolean) {
-    return this.datesAvailabesDataSource.updateStatusDateAvailable(id, status);
+  public updateStatusDateAvailable(
+    id: string,
+    body: UpdateStatusDateAvailableDTO,
+  ) {
+    return this.datesAvailabesDataSource.updateStatusDateAvailable(id, body);
   }
 }
