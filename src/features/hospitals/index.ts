@@ -24,6 +24,7 @@ import {
   DeleteDateAvailableUseCase,
   GetByDoctorIdUseCase,
   GetDoctorsAvailableUseCase,
+  UpdateStatusDateAvailableUseCase,
 } from "./use-cases/dates-availables";
 import { DatesAvailablesController } from "./controllers/dates-availables.controller";
 import {
@@ -33,6 +34,15 @@ import {
 import { DateAvailableMapper } from "./mappers/dates-availables.mapper";
 import { DatesAvailablesDataSource } from "./datasources/dates-availables.datasource";
 import { DatesAvailablesRepository } from "./repositories/dates-availables.repository";
+import {
+  CreateConsultUseCase,
+  GetConsultByUserIdUseCase,
+} from "./use-cases/consults";
+import { ConsultsController } from "./controllers/consults.controller";
+import { Consult, ConsultsSchema } from "./entities/consults.entity";
+import { ConsultMapper } from "./mappers/consults.mapper";
+import { ConsultsDataSource } from "./datasources/consults.datasource";
+import { ConsultsRepository } from "./repositories/consults.repository";
 
 const usecases = [
   CreateHospitalUseCase,
@@ -47,14 +57,22 @@ const usecases = [
   GetDatesBySpecialtyUseCase,
   GetHourAvailableUseCase,
   GetDoctorsAvailableUseCase,
+  UpdateStatusDateAvailableUseCase,
+  CreateConsultUseCase,
+  GetConsultByUserIdUseCase,
 ];
 
 @Module({
-  controllers: [HospitalsController, DatesAvailablesController],
+  controllers: [
+    HospitalsController,
+    DatesAvailablesController,
+    ConsultsController,
+  ],
   imports: [
     MongooseModule.forFeature([
       { name: Hospital.name, schema: HospitalSchema },
       { name: DateAvailable.name, schema: DateAvailableSchema },
+      { name: Consult.name, schema: ConsultsSchema },
     ]),
     PassportModule,
     JwtAuthGuardModule,
@@ -67,6 +85,9 @@ const usecases = [
     DateAvailableMapper,
     DatesAvailablesDataSource,
     DatesAvailablesRepository,
+    ConsultMapper,
+    ConsultsDataSource,
+    ConsultsRepository,
     CryptService,
   ],
 })

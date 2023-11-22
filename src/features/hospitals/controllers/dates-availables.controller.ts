@@ -9,6 +9,7 @@ import {
   UseInterceptors,
   Delete,
   Query,
+  Patch,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "@brisacorp/common/security";
@@ -16,6 +17,7 @@ import {
   CreateDateAvailableUseCase,
   GetByDoctorIdUseCase,
   GetDoctorsAvailableUseCase,
+  UpdateStatusDateAvailableUseCase,
 } from "../use-cases/dates-availables";
 import { DateAvailableDto } from "@brisacorp/common/dtos/hospitals/date-available.dto";
 import { CreateDateAvailableDTO } from "@brisacorp/common/dtos/hospitals/create-date-available.dto";
@@ -30,6 +32,7 @@ export class DatesAvailablesController {
     private readonly getByDoctorIdUseCase: GetByDoctorIdUseCase,
     private readonly deleteDateAvailableUseCase: DeleteDateAvailableUseCase,
     private readonly getDoctorAvailableUsecase: GetDoctorsAvailableUseCase,
+    private readonly updateStatusDateAvailableUseCase: UpdateStatusDateAvailableUseCase,
   ) {}
 
   @Post()
@@ -57,6 +60,17 @@ export class DatesAvailablesController {
   public getByDoctorId(@Param("id") id: string): Promise<DateAvailableDto[]> {
     return this.getByDoctorIdUseCase.execute(id);
   }
+
+  @Patch("/:id")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public UpdateDateAvailable(
+    @Param("id") id: string,
+    @Query("status") status: boolean,
+  ) {
+    return this.updateStatusDateAvailableUseCase.execute(id, status);
+  }
+
   @Delete("/:id")
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

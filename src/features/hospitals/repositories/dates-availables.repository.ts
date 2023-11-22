@@ -29,4 +29,8 @@ export class DatesAvailablesRepository extends CrudRepository<
   ): Promise<DatesAvailablesDto[]> {
     return this.datesAvailabesDataSource.getDoctorsAvailable(specialty, date);
   }
+
+  public updateStatusDateAvailable(id: string, status: boolean) {
+    return this.datesAvailabesDataSource.updateStatusDateAvailable(id, status);
+  }
 }

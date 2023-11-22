@@ -55,4 +55,11 @@ export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
     ]);
     return hour;
   }
+
+  public updateStatusDateAvailable(id: string, status: boolean) {
+    return this.dateAvailableModel.updateOne({
+      _id: id,
+      $set: { active: status },
+    });
+  }
 }
