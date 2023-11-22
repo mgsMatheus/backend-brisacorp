@@ -6,6 +6,8 @@ import { HospitalsDataSource } from "../datasources/hospitals.datasource";
 import { HospitalMapper } from "../mappers/hospital.mapper";
 import { Doctor } from "../entities/doctors.entity";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
+import { SpecialtyDto } from "@brisacorp/common/dtos/hospitals/specialty.dto";
+import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
 
 @Injectable()
 export class HospitalsRepository extends CrudRepository<
@@ -40,5 +42,17 @@ export class HospitalsRepository extends CrudRepository<
 
   public async getDoctorById(id: string): Promise<DoctorDto[]> {
     return await this.hospitalsDataSource.getDoctorById(id);
+  }
+
+  public filterSpecialty(): Promise<SpecialtyDto[]> {
+    return this.hospitalsDataSource.filterSpecialty();
+  }
+
+  public async getDateAvailableBySpecialty(
+    specialty: string,
+  ): Promise<DatesAvailablesDto[]> {
+    return await this.hospitalsDataSource.getDateAvailableBySpecialty(
+      specialty,
+    );
   }
 }

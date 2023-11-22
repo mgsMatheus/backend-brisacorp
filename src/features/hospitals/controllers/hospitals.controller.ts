@@ -19,8 +19,14 @@ import { JwtAuthGuard } from "@brisacorp/common/security";
 import { GetHospitalByIdUseCase } from "../use-cases/hospitals/get-hospital-by-id.usecase";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
 import { CreateDoctorUseCase } from "../use-cases/hospitals/create-doctor.usecase";
-import { GetDoctorsUseCase } from "../use-cases/hospitals";
+import {
+  FilterSpecialtyUseCase,
+  GetDatesBySpecialtyUseCase,
+  GetDoctorsUseCase,
+} from "../use-cases/hospitals";
 import { GetDoctorByIdUseCase } from "../use-cases/hospitals/get-doctor-by-id.usecase";
+import { SpecialtyDto } from "@brisacorp/common/dtos/hospitals/specialty.dto";
+import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
 
 @Controller("/v1/hospitals")
 @ApiTags("Hospital")
@@ -31,6 +37,8 @@ export class HospitalsController {
     private readonly getHospitalByIdUseCase: GetHospitalByIdUseCase,
     private readonly getDoctorsUseCase: GetDoctorsUseCase,
     private readonly getDoctorByIdUseCase: GetDoctorByIdUseCase,
+    private readonly filterSpecialtyUseCase: FilterSpecialtyUseCase,
+    private readonly getDatesBySpecialtyUseCase: GetDatesBySpecialtyUseCase,
   ) {}
 
   @Post()
@@ -45,6 +53,22 @@ export class HospitalsController {
   @UseInterceptors(ClassSerializerInterceptor)
   public getProfile(@Request() req: Express.Request) {
     return this.getById(req.user.id);
+  }
+
+  @Get("specialty")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public FilterSpecialty(): Promise<SpecialtyDto[]> {
+    return this.filterSpecialtyUseCase.execute();
+  }
+
+  @Get("dates-specialty")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public GetdatesSpecialty(
+    @Query("specialty") specialty: string,
+  ): Promise<DatesAvailablesDto[]> {
+    return this.getDatesBySpecialtyUseCase.execute(specialty);
   }
 
   @Get(":id")

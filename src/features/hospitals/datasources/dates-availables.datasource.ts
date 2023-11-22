@@ -8,8 +8,17 @@ import { DateAvailable } from "../entities/dates-availables.entity";
 export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
   constructor(
     @InjectModel(DateAvailable.name)
-    private readonly dateAvailable: Model<DateAvailable>,
+    private readonly dateAvailableModel: Model<DateAvailable>,
   ) {
-    super(dateAvailable);
+    super(dateAvailableModel);
+  }
+
+  public async getByDoctorId(doctorId: string): Promise<DateAvailable[]> {
+    return this.dateAvailableModel
+      .find({
+        doctorId,
+        active: true,
+      })
+      .exec();
   }
 }

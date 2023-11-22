@@ -4,6 +4,8 @@ import { PassportModule } from "@nestjs/passport";
 import {
   CreateDoctorUseCase,
   CreateHospitalUseCase,
+  FilterSpecialtyUseCase,
+  GetDatesBySpecialtyUseCase,
   GetDoctorByIdUseCase,
   GetDoctorsUseCase,
   GetHospitalByIdUseCase,
@@ -16,7 +18,11 @@ import { Hospital, HospitalSchema } from "./entities/hospitals.entity";
 import { HospitalMapper } from "./mappers/hospital.mapper";
 import { HospitalsDataSource } from "./datasources/hospitals.datasource";
 import { HospitalsRepository } from "./repositories/hospitals.repository";
-import { CreateDateAvailableUseCase } from "./use-cases/dates-availables";
+import {
+  CreateDateAvailableUseCase,
+  DeleteDateAvailableUseCase,
+  GetByDoctorIdUseCase,
+} from "./use-cases/dates-availables";
 import { DatesAvailablesController } from "./controllers/dates-availables.controller";
 import {
   DateAvailable,
@@ -33,6 +39,10 @@ const usecases = [
   GetDoctorsUseCase,
   CreateDateAvailableUseCase,
   GetDoctorByIdUseCase,
+  GetByDoctorIdUseCase,
+  DeleteDateAvailableUseCase,
+  FilterSpecialtyUseCase,
+  GetDatesBySpecialtyUseCase,
 ];
 
 @Module({

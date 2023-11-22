@@ -5,6 +5,8 @@ import { CrudDataSource } from "@brisacorp/common/base/data";
 import { Hospital } from "../entities/hospitals.entity";
 import { Doctor } from "../entities/doctors.entity";
 import { DoctorDto } from "@brisacorp/common/dtos/hospitals/doctor.dto";
+import { SpecialtyDto } from "@brisacorp/common/dtos/hospitals/specialty.dto";
+import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
 
 @Injectable()
 export class HospitalsDataSource extends CrudDataSource<Hospital> {
@@ -163,5 +165,55 @@ export class HospitalsDataSource extends CrudDataSource<Hospital> {
       ])
       .exec();
     return getDoctors;
+  }
+
+  filterSpecialty(): Promise<SpecialtyDto[]> {
+    const getDoctors = this.hospitalModel
+      .aggregate([
+        {
+          $unwind: "$doctors",
+        },
+        {
+          $project: {
+            _id: 0,
+            "doctors.specialty": 1,
+          },
+        },
+      ])
+      .exec();
+    return getDoctors;
+  }
+
+  public async getDateAvailableBySpecialty(
+    specialty: string,
+  ): Promise<DatesAvailablesDto[]> {
+    const date = await this.hospitalModel.aggregate([
+      {
+        $unwind: "$doctors",
+      },
+      {
+        $project: {
+          "doctors.specialty": 1,
+          _id: {
+            $toString: "$doctors._id",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "dateavailables",
+          localField: "_id",
+          foreignField: "doctorId",
+          as: "datesDoctors",
+        },
+      },
+      {
+        $match: {
+          "doctors.specialty": specialty,
+          "datesDoctors.active": true,
+        },
+      },
+    ]);
+    return date;
   }
 }

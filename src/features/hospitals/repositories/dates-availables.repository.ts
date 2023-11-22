@@ -18,4 +18,7 @@ export class DatesAvailablesRepository extends CrudRepository<
   ) {
     super(datesAvailabesDataSource, dateAvailabeMapper);
   }
+  public getByDoctorId(id: string): Promise<DateAvailableDto[]> {
+    return this.datesAvailabesDataSource.getByDoctorId(id);
+  }
 }
