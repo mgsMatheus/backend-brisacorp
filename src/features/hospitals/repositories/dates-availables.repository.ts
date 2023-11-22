@@ -4,6 +4,7 @@ import { DateAvailable } from "../entities/dates-availables.entity";
 import { DateAvailableDto } from "@brisacorp/common/dtos/hospitals/date-available.dto";
 import { DatesAvailablesDataSource } from "../datasources/dates-availables.datasource";
 import { DateAvailableMapper } from "../mappers/dates-availables.mapper";
+import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
 
 @Injectable()
 export class DatesAvailablesRepository extends CrudRepository<
@@ -20,5 +21,12 @@ export class DatesAvailablesRepository extends CrudRepository<
   }
   public getByDoctorId(id: string): Promise<DateAvailableDto[]> {
     return this.datesAvailabesDataSource.getByDoctorId(id);
+  }
+
+  public getDoctorsAvailable(
+    specialty: string,
+    date: string,
+  ): Promise<DatesAvailablesDto[]> {
+    return this.datesAvailabesDataSource.getDoctorsAvailable(specialty, date);
   }
 }

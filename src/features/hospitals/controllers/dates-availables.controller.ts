@@ -8,16 +8,19 @@ import {
   Param,
   UseInterceptors,
   Delete,
+  Query,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "@brisacorp/common/security";
 import {
   CreateDateAvailableUseCase,
   GetByDoctorIdUseCase,
+  GetDoctorsAvailableUseCase,
 } from "../use-cases/dates-availables";
 import { DateAvailableDto } from "@brisacorp/common/dtos/hospitals/date-available.dto";
 import { CreateDateAvailableDTO } from "@brisacorp/common/dtos/hospitals/create-date-available.dto";
 import { DeleteDateAvailableUseCase } from "../use-cases/dates-availables/delete-date-available.usecase";
+import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
 
 @Controller("/v1/datesAvailables")
 @ApiTags("Hospital")
@@ -26,6 +29,7 @@ export class DatesAvailablesController {
     private readonly createDateAvailableUseCase: CreateDateAvailableUseCase,
     private readonly getByDoctorIdUseCase: GetByDoctorIdUseCase,
     private readonly deleteDateAvailableUseCase: DeleteDateAvailableUseCase,
+    private readonly getDoctorAvailableUsecase: GetDoctorsAvailableUseCase,
   ) {}
 
   @Post()
@@ -37,6 +41,16 @@ export class DatesAvailablesController {
   ): Promise<DateAvailableDto> {
     return this.createDateAvailableUseCase.execute(dateAvailable);
   }
+  @Get("doctors-available")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public GetHoursAvailable(
+    @Query("specialty") specialty: string,
+    @Query("date") date: string,
+  ): Promise<DatesAvailablesDto[]> {
+    return this.getDoctorAvailableUsecase.execute(specialty, date);
+  }
+
   @Get("/:id")
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)

@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CrudDataSource } from "@brisacorp/common/base/data";
 import { DateAvailable } from "../entities/dates-availables.entity";
+import { DatesAvailablesDto } from "@brisacorp/common/dtos/hospitals/dates-availables.dto";
 
 @Injectable()
 export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
@@ -20,5 +21,38 @@ export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
         active: true,
       })
       .exec();
+  }
+
+  public async getDoctorsAvailable(
+    specialty: string,
+    date: string,
+  ): Promise<DatesAvailablesDto[]> {
+    const hour = await this.dateAvailableModel.aggregate([
+      {
+        $project: {
+          date: 1,
+          active: 1,
+          _idDoctor: {
+            $toObjectId: "$doctorId",
+          },
+        },
+      },
+      {
+        $lookup: {
+          from: "hospitals",
+          localField: "_idDoctor",
+          foreignField: "doctors._id",
+          as: "datesDoctors",
+        },
+      },
+      {
+        $match: {
+          "datesDoctors.doctors.specialty": specialty,
+          active: true,
+          date: date,
+        },
+      },
+    ]);
+    return hour;
   }
 }

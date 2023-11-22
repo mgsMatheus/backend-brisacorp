@@ -23,6 +23,7 @@ import {
   CreateDateAvailableUseCase,
   DeleteDateAvailableUseCase,
   GetByDoctorIdUseCase,
+  GetDoctorsAvailableUseCase,
 } from "./use-cases/dates-availables";
 import { DatesAvailablesController } from "./controllers/dates-availables.controller";
 import {
@@ -45,6 +46,7 @@ const usecases = [
   FilterSpecialtyUseCase,
   GetDatesBySpecialtyUseCase,
   GetHourAvailableUseCase,
+  GetDoctorsAvailableUseCase,
 ];
 
 @Module({
