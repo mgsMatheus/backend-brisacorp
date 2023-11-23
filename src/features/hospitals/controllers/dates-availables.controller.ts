@@ -55,13 +55,6 @@ export class DatesAvailablesController {
     return this.getDoctorAvailableUsecase.execute(specialty, date);
   }
 
-  @Get("/:id")
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
-  public getByDoctorId(@Param("id") id: string): Promise<DateAvailableDto[]> {
-    return this.getByDoctorIdUseCase.execute(id);
-  }
-
   @Patch("/:id")
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
@@ -70,6 +63,13 @@ export class DatesAvailablesController {
     @Body() body: UpdateStatusDateAvailableDTO,
   ) {
     return this.updateStatusDateAvailableUseCase.execute(id, body);
+  }
+
+  @Get("/:id")
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard)
+  public getByDoctorId(@Param("id") id: string): Promise<DateAvailableDto[]> {
+    return this.getByDoctorIdUseCase.execute(id);
   }
 
   @Delete("/:id")

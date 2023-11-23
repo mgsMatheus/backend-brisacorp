@@ -62,7 +62,7 @@ export class DatesAvailablesDataSource extends CrudDataSource<DateAvailable> {
     body: UpdateStatusDateAvailableDTO,
   ) {
     return this.dateAvailableModel.updateOne({
-      _id: id,
+      id,
       $set: { active: body.status },
     });
   }
