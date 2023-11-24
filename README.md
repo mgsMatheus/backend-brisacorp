@@ -1,73 +1,70 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Projeto BrisaCORP FrontEnd
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Este é um projeto incrível que utiliza MongoDB como banco de dados. Aqui estão os passos para configurar e executar o projeto em sua máquina local.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Pré-requisitos
 
-## Description
+Certifique-se de ter as seguintes ferramentas instaladas em sua máquina antes de começar:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- [Node.js](https://nodejs.org/en/download/current) - Versão utilizada: v18.12.1
+- [Docker](https://www.docker.com/products/docker-desktop/)
+- [MongoDB](https://www.mongodb.com/try/download/shell)
 
-## Installation
+## Configuração do Ambiente
 
-```bash
-$ npm install
-```
+1. Clone o repositório:
 
-## Running the app
+    ```bash
+    git clone git@github.com:mgsMatheus/frontend-brisacorp.git
+    ```
 
-```bash
-# development
-$ npm run start
+2. Instale as dependências do projeto:
 
-# watch mode
-$ npm run start:dev
+    ```bash
+    npm install
+    ```
 
-# production mode
-$ npm run start:prod
-```
+3. Inicie o servidor MongoDB. Você pode escolher entre rodar o MongoDB localmente ou via Docker.
 
-## Test
+    - Para rodar localmente:
 
-```bash
-# unit tests
-$ npm run test
+        ```bash
+        docker run --name mongodb-container -p 27017:27017 -d mongo
+        ```
 
-# e2e tests
-$ npm run test:e2e
+    - Ou utilize o Docker Compose na raiz do projeto:
 
-# test coverage
-$ npm run test:cov
-```
+        ```bash
+        docker-compose up -d
+        ```
 
-## Support
+## Executando o Projeto
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Após a configuração do MongoDB, execute o seguinte comando para iniciar o servidor:
 
-## Stay in touch
+    ```bash
+    npm run start
+    ```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. Acesse o Swagger e as APIs em:
 
-## License
+    [http://localhost:3000/v1/docs](http://localhost:3000/v1/docs)
 
-Nest is [MIT licensed](LICENSE).
+## Acessando o Banco de Dados
+
+1. Abra o MongoDB Shell ou um cliente MongoDB de sua escolha.
+
+2. Conecte-se à URI:
+
+    ```bash
+    mongodb://localhost:27017
+    ```
+
+3. Acesse o banco de dados:
+
+    ```bash
+    use brisacorp
+    ```
+
+4. Explore e gerencie seus dados no banco de dados "brisacorp".
+
