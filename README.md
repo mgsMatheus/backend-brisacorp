@@ -1,4 +1,4 @@
-# Projeto BrisaCORP FrontEnd
+# Projeto BrisaCORP Backend
 
 Este é um projeto incrível que utiliza MongoDB como banco de dados. Aqui estão os passos para configurar e executar o projeto em sua máquina local.
 
